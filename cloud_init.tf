@@ -13,7 +13,7 @@ data "template_file" "network_config" {
 
 data "template_file" "init_config" {
   count = var.vm_count
-  template = file("${path.module}/templates/ci_${var.srv_tpl}.tpl")
+  template = file("${var.custom_template != null ? var.custom_template : local.defined_template}")
   vars = {
     admin = var.admin
     ssh_keys = var.ssh_keys
@@ -23,11 +23,6 @@ data "template_file" "init_config" {
     time_zone = var.time_zone
   }
 }
-
-#locals {
-  #keys = file("${path.module}/${var.ssh_keys}")
-#  keys = var.ssh_keys
-#}
 
 data "template_cloudinit_config" "init_config" {
   count         = var.vm_count

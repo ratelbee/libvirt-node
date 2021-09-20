@@ -1,3 +1,8 @@
+locals {
+  full_name = "${var.district}-${var.hostname != "default" ? var.hostname : var.srv_tpl}"
+  defined_template = "${path.module}/templates/ci_${var.srv_tpl}.tpl"
+}
+
 variable "os_img_url" {
   description = "URL to the OS image"
   default     = "https://cloud-images.ubuntu.com/focal/current/focal-server-cloudimg-amd64.img"
@@ -34,10 +39,6 @@ variable "hostname" {
   description = "VM hostname"
   type        = string
   default     = "default"
-}
-
-locals {
-  full_name = "${var.district}-${var.hostname != "default" ? var.hostname : var.srv_tpl}"
 }
 
 variable "fqdn" {
@@ -140,3 +141,9 @@ variable "ssh_private_key" {
   description = "Private key for SSH connection test"
   default     = "~/.ssh/id_ed25519"
 }
+
+variable "custom_template" {
+  description = "Set A custom Template"
+  type        = string
+}
+
