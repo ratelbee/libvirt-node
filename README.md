@@ -21,8 +21,8 @@ module "node" {
                   ]
   ip_gateway    = "10.20.1.1"
   ip_resolv     = "'10.20.1.30', '10.20.0.30'"
-  admin         = "alyans"
-  passwd        = "130376"
+  admin         = "user"
+  passwd        = "password"
   ssh_keys      = file("./id_rsa.pub")
   time_zone     = "Europe/Moscow"
   os_img_url    = "/vmssd/iso/ubuntu-20.04-server-cloudimg-amd64.img"
