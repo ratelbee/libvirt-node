@@ -6,5 +6,5 @@ ethernets:
     addresses: [${ip_address}]
     gateway4: ${ip_gateway}
     nameservers:
-       addresses: [${ip_resolv]
+       addresses: [${ip_resolv}]
        search: ['${fqdn}']
