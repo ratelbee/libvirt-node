@@ -17,7 +17,7 @@ data "template_file" "init_config" {
   vars = {
     admin = var.admin
     ssh_keys = var.ssh_keys
-    passwd = var.local_admin_passwd
+    passwd = var.passwd
     hostname = format("${local.full_name}-%02d", count.index + var.index_start)
     fqdn = "${format("${local.full_name}-%02d", count.index + var.index_start)}.${var.fqdn}"
     time_zone = var.time_zone
