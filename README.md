@@ -1,7 +1,7 @@
 # Libvirt Node Example
 ```
 module "node" {
-  source        = "git::https://gitlab.alyans-auto.ru/pub/libvirt-node.git"
+  source        = "$SOURCE_GIT_LINK"
   vm_count      = 2
   district      = "fm"
   srv_tpl       = "glrnr"
@@ -34,5 +34,24 @@ module "node" {
 output "ip_addresses" {
   value = module.node
 }
-```
 
+terraform {
+  backend "pg" {
+    conn_str = "$PG_BACKEND_URI"
+  }
+  required_providers {
+    libvirt = {
+      source  = "dmacvicar/libvirt"
+      version = "0.6.10"
+    }
+  }
+  required_version = ">= 0.14"
+}
+
+provider "libvirt" {
+   uri = "$QEMU_SSH_URI"
+}
+
+
+```
+$SOURCE_GIT_LINK = git::https://gitlab.alyans-auto.ru/pub/libvirt-node.git
