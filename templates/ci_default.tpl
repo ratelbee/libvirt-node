@@ -4,9 +4,6 @@ package_upgrade: false
 
 packages:
   - curl
-  - docker
-  - docker.io
-  - docker-compose
   - vim
   - qemu-guest-agent
 
@@ -19,14 +16,13 @@ hostname: ${hostname}
 fqdn: ${hostname}.${fqdn}
 
 users:
-  - name: ${ssh_admin}
+  - name: ${admin}
     gecos: CI User
     lock-passwd: false
     sudo: ALL=(ALL) NOPASSWD:ALL
     system: False
     ssh_authorized_keys: ${ssh_keys}
     shell: /bin/bash
-    passwd: 130376
 
 write_files:
   - path: /etc/ssh/sshd_config
@@ -60,7 +56,7 @@ write_files:
          AcceptEnv LANG LC_*
          Subsystem sftp /usr/lib/openssh/sftp-server
          UsePAM yes
-         AllowUsers ${ssh_admin}
+         AllowUsers ${admin}
 
 growpart:
     mode: auto
