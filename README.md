@@ -54,4 +54,4 @@ provider "libvirt" {
 
 
 ```
-$SOURCE_GIT_LINK = git::https://gitlab.alyans-auto.ru/pub/libvirt-node.git
+$SOURCE_GIT_LINK = "git::https://gitlab.alyans-auto.ru/pub/libvirt-node.git"
