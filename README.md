@@ -1,4 +1,5 @@
 # Libvirt Node Example
+```
 module "node" {
   source  = "./node"
   vm_count      = 2
@@ -35,3 +36,5 @@ module "node" {
 output "ip_addresses" {
   value = module.node
 }
+```
+
