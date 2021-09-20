@@ -1,27 +1,6 @@
 # Libvirt Node Example
 ```
 module "node" {
-  source  = "git::https://gitlab.alyans-auto.ru/ops/libvirt-node.git"
-  vm_count      = 2
-  district      = "fm"
-  srv_tpl       = "glrnr"
-  fqdn          = "alyans.alyans-auto.ru"
-  memory        = "1024"
-  hugepages     = false
-  vcpu          = 1
-  pool          = "vmssd"
-  system_volume = 8
-  bridge        = "br0"
-  dhcp = false
-  ip_address  = [
-                  "10.20.100.183/24",
-                  "10.20.100.184/24",
-                  "10.20.100.185/24",
-                  "10.20.100.186/24",
-                ]
-  ip_gateway  = "10.20.100.1"
-  ip_nameservers = "'10.20.1.30', '10.20.0.30'"
-  local_admin = "alyamodule "node" {
   source        = "git::https://gitlab.alyans-auto.ru/pub/libvirt-node.git"
   vm_count      = 2
   district      = "fm"
