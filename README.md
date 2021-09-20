@@ -58,4 +58,4 @@ provider "libvirt" {
 
 `$PG_BACKEND_URI = "postgres://tfstate:tfstate@gitlab.alyans-auto.ru:6432/tfstate?sslmode=disable"`
 
-`"$QEMU_SSH_URI" = "qemu+ssh://q@fm-kvm/system"`
+`"$QEMU_SSH_URI" = "qemu+ssh://q@fm-kvm/system?keyfile=id_rsa"`
