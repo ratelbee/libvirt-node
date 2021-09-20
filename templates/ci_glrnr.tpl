@@ -18,7 +18,7 @@ hostname: ${hostname}
 fqdn: ${hostname}.${fqdn}
 
 users:
-  - name: ${ssh_admin}
+  - name: ${admin}
     gecos: CI User
     lock-passwd: false
     sudo: ALL=(ALL) NOPASSWD:ALL
@@ -27,7 +27,7 @@ users:
     shell: /bin/bash
 chpasswd:
     list: |
-        ${ssh_admin}:130376
+        ${admin}:${passwd}
     expire: false
 
 write_files:
@@ -62,7 +62,7 @@ write_files:
          AcceptEnv LANG LC_*
          Subsystem sftp /usr/lib/openssh/sftp-server
          UsePAM yes
-         AllowUsers ${ssh_admin}
+         AllowUsers ${admin}
 
 growpart:
     mode: auto
