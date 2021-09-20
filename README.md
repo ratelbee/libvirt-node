@@ -1,7 +1,7 @@
 # Libvirt Node Example
 ```
 module "node" {
-  source  = "./node"
+  source  = "git::https://gitlab.alyans-auto.ru/ops/libvirt-node.git"
   vm_count      = 2
   district      = "fm"
   srv_tpl       = "glrnr"
