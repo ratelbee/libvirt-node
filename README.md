@@ -28,6 +28,7 @@ module "node" {
   os_img_url    = "/vmssd/iso/ubuntu-20.04-server-cloudimg-amd64.img"
   #hostname     = "runner"
   #ssh_private_key = "~/.ssh/id_rsa"
+  #custom_template = "./gl-rnr.tpl"
   
 }
 
