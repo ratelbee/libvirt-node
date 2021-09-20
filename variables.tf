@@ -105,7 +105,7 @@ variable "ip_address" {
   default     = [ "192.168.123.101" ]
 }
 
-variable "ip_nameservers" {
+variable "ip_resolv" {
   description = "IP addresses of a nameservers"
   default     =  "192.168.123.1" 
 }
@@ -115,7 +115,7 @@ variable "ip_gateway" {
   default     = "192.168.123.1"
 }
 
-variable "ssh_admin" {
+variable "admin" {
   description = "Admin user with ssh access"
   default = "ssh-admin"
 }
@@ -126,14 +126,9 @@ variable "ssh_keys" {
   default     = ""
 }
 
-variable "local_admin" {
-  description = "Admin user without ssh access"
-  default     = "local-admin"
-}
-
-variable "local_admin_passwd" {
-  description = "Local admin user password"
-  default     = "password_example"
+variable "passwd" {
+  description = "Admin user password"
+  default     = "password_example_@#$!346321@Q#%@!fsd"
 }
 
 variable "time_zone" {
