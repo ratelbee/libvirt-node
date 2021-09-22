@@ -24,7 +24,7 @@ cpu  = {
 
   network_interface {
     bridge         = var.bridge
-    wait_for_lease = true
+    #wait_for_lease = true
     hostname       = format("${local.full_name}-%02d", count.index + var.index_start)
     addresses      = ["${element(var.ip_address, count.index)}"]
   }
