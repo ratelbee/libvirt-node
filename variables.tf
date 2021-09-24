@@ -145,5 +145,6 @@ variable "ssh_private_key" {
 variable "custom_template" {
   description = "Set A custom Template"
   type        = string
+  deafult     = null
 }
 
