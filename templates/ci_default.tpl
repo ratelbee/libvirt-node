@@ -1,19 +1,13 @@
 #cloud-config
 
-package_upgrade: false
-
 packages:
-  - curl
-  - vim
   - qemu-guest-agent
-
-runcmd:
-  - [ systemctl, daemon-reload ]
-  - [ systemctl, enable, qemu-guest-agent ]
-  - [ systemctl, start, qemu-guest-agent ]
+  - vim
+  - curl
 
 hostname: ${hostname}
 fqdn: ${hostname}.${fqdn}
+manage_etc_hosts: true
 
 users:
   - name: ${admin}
@@ -23,6 +17,12 @@ users:
     system: False
     ssh_authorized_keys: ${ssh_keys}
     shell: /bin/bash
+chpasswd:
+    list: |
+        ${admin}:${passwd}
+    expire: false
+
+disable_root: true
 
 write_files:
   - path: /etc/ssh/sshd_config
@@ -66,3 +66,8 @@ growpart:
 resize_rootfs: true
 
 timezone: ${time_zone}
+
+runcmd:
+  - [ systemctl, daemon-reload ]
+  - [ systemctl, enable, qemu-guest-agent ]
+  - [ systemctl, start, qemu-guest-agent ]
