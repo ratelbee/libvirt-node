@@ -6,7 +6,7 @@ packages:
   - curl
 
 hostname: ${hostname}
-fqdn: ${hostname}.${fqdn}
+fqdn: ${fqdn}
 manage_etc_hosts: true
 
 users:
