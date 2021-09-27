@@ -70,6 +70,7 @@ cpu  = {
       "echo \"Virtual Machine \"$(hostname)\" is UP!\"",
       "date"
     ]
+  }
 
   connection {
       type                = "ssh"
