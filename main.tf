@@ -75,7 +75,7 @@ cpu  = {
       type                = "ssh"
       user                = var.admin
       host                = self.network_interface.0.addresses.0
-      private_key         = file(var.ssh_private_key)
+      private_key         = var.ssh_private_key
       timeout             = "2m"
    } 
 
