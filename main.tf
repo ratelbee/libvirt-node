@@ -64,7 +64,7 @@ cpu  = {
     listen_type = "address"
     autoport    = true
   }
-/*
+
   provisioner "remote-exec" {
     inline = [
       "echo \"Virtual Machine \"$(hostname)\" is UP!\"",
@@ -73,10 +73,10 @@ cpu  = {
 
   connection {
       type                = "ssh"
-      user                = var.ssh_admin
+      user                = var.admin
       host                = self.network_interface.0.addresses.0
       private_key         = file(var.ssh_private_key)
       timeout             = "2m"
-   } */
+   } 
 
 }
