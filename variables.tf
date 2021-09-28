@@ -113,7 +113,7 @@ variable "ip_resolv" {
 
 variable "ip_netmask" {
   description = "IP addresses of a nameservers"
-  type        = string
+  type        = number
   default     =  "24" 
 }
 
