@@ -64,16 +64,30 @@ cpu  = {
     listen_type = "address"
     autoport    = true
   }
+  
+  provisioner "file" {
+    source      = var.sp_scripts
+    destination = var.dp_scripts
+
+    connection {
+      type                = "ssh"
+      user                = var.admin
+      host                = var.dhcp == true ? self.network_interface.0.addresses.0 : element(var.ip_address, count.index)
+      private_key         = file(var.ssh_private_key)
+      timeout             = "2m"
+    }
+  }
+
 
   provisioner "remote-exec" {
-    inline = [ ${var.remote_exec} ]
+    inline = [ file(var.remote_exec) ]
   }
 
   connection {
       type                = "ssh"
       user                = var.admin
       host                = var.dhcp == true ? self.network_interface.0.addresses.0 : element(var.ip_address, count.index)
-      private_key         = var.ssh_private_key
+      private_key         = file(var.ssh_private_key)
       timeout             = "2m"
    } 
 

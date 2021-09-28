@@ -154,3 +154,5 @@ variable "custom_template" {
   default     = null
 }
 
+ = var.sp_scripts
+    destination = var.dp_scripts
