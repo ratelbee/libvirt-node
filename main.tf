@@ -66,10 +66,7 @@ cpu  = {
   }
 
   provisioner "remote-exec" {
-    inline = [
-      "echo \"Virtual Machine \"$(hostname)\" is UP!\"",
-      "date"
-    ]
+    inline = [ ${var.remote_exec} ]
   }
 
   connection {
