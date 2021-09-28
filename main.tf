@@ -24,7 +24,7 @@ cpu  = {
 
   network_interface {
     bridge         = var.bridge
-    #wait_for_lease = true
+    wait_for_lease = var.dhcp == true ? true : false
     hostname       = format("${local.full_name}-%02d", count.index + var.index_start)
     addresses      = ["${element(var.ip_address, count.index)}"]
   }
@@ -75,7 +75,7 @@ cpu  = {
   connection {
       type                = "ssh"
       user                = var.admin
-      host                = self.network_interface.0.addresses.0
+      host                = var.dhcp == true ? self.network_interface.0.addresses.0 : element(var.ip_address, count.index)
       private_key         = var.ssh_private_key
       timeout             = "2m"
    } 
