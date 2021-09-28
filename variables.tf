@@ -111,6 +111,12 @@ variable "ip_resolv" {
   default     =  "192.168.123.1" 
 }
 
+variable "ip_netmask" {
+  description = "IP addresses of a nameservers"
+  type        = string
+  default     =  "24" 
+}
+
 variable "ip_gateway" {
   description = "IP addresses of a gateway"
   default     = "192.168.123.1"
