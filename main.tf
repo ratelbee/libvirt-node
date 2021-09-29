@@ -75,7 +75,7 @@ resource "null_resource" "file" {
       type                = "ssh"
       user                = var.admin
       host                = element(var.ip_address, count.index)
-      private_key         = file(var.ssh_private_key)
+      private_key         = var.ssh_private_key
       #timeout             = "2m"
     }
   }
@@ -96,7 +96,7 @@ resource "null_resource" "exec" {
       type                = "ssh"
       user                = var.admin
       host                = element(var.ip_address, count.index)
-      private_key         = file(var.ssh_private_key)
+      private_key         = var.ssh_private_key
       timeout             = "2m"
    }
  }
