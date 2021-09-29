@@ -145,7 +145,7 @@ variable "time_zone" {
 
 variable "ssh_private_key" {
   description = "Private key for SSH connection test"
-  default     = "~/.ssh/id_ed25519"
+  default     = ""
 }
 
 variable "custom_template" {
