@@ -66,6 +66,7 @@ resource "libvirt_domain" "virt-machine" {
 resource "null_resource" "file" {
   count      = var.vm_count
   depends_on = [ libvirt_domain.virt-machine ]
+  on_failure = continue
 
   provisioner "file" {
     source      = var.sp_scripts
