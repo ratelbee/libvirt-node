@@ -74,7 +74,7 @@ cpu  = {
       user                = var.admin
       host                = var.dhcp == true ? self.network_interface.0.addresses.0 : element(var.ip_address, count.index)
       private_key         = file(var.ssh_private_key)
-      timeout             = "2m"
+      #timeout             = "2m"
     }
   }
 
@@ -88,7 +88,7 @@ cpu  = {
       user                = var.admin
       host                = var.dhcp == true ? self.network_interface.0.addresses.0 : element(var.ip_address, count.index)
       private_key         = file(var.ssh_private_key)
-      timeout             = "2m"
+      timeout             = "3m"
    } 
 
 }
