@@ -9,18 +9,14 @@ terraform {
 }
 
 resource "libvirt_domain" "virt-machine" {
-  count  = var.vm_count
-  name   = format("${local.full_name}-%02d", count.index + var.index_start)
-  memory = var.memory
-  vcpu   = var.vcpu
+  count      = var.vm_count
+  name       = format("${local.full_name}-%02d", count.index + var.index_start)
+  memory     = var.memory
+  vcpu       = var.vcpu
   autostart  = var.autostart
   qemu_agent = true
-
-  cloudinit = element(libvirt_cloudinit_disk.commoninit.*.id, count.index)
-
-cpu  = {
-  mode = "host-passthrough"
-}
+  cloudinit  = element(libvirt_cloudinit_disk.commoninit.*.id, count.index)
+  cpu        = {  mode = "host-passthrough"  }
 
   network_interface {
     bridge         = var.bridge
@@ -65,6 +61,12 @@ cpu  = {
     autoport    = true
   }
   
+}
+
+resource "null_resource" "file" {
+  count      = var.vm_count
+  depends_on = [ libvirt_domain.virt-machine ]
+
   provisioner "file" {
     source      = var.sp_scripts
     destination = var.dp_scripts
@@ -72,23 +74,32 @@ cpu  = {
     connection {
       type                = "ssh"
       user                = var.admin
-      host                = var.dhcp == true ? self.network_interface.0.addresses.0 : element(var.ip_address, count.index)
+      host                = element(var.ip_address, count.index)
       private_key         = file(var.ssh_private_key)
       #timeout             = "2m"
     }
   }
 
+}
+
+resource "null_resource" "exec" {
+  count    = var.vm_count
+
+  triggers = {
+    before = null_resource.file[count.index].id
+  }
 
   provisioner "remote-exec" {
-    inline = [ file(var.remote_exec) ]
-  }
+    inline = [ "${file(var.remote_exec)}" ]
 
   connection {
       type                = "ssh"
       user                = var.admin
-      host                = var.dhcp == true ? self.network_interface.0.addresses.0 : element(var.ip_address, count.index)
+      host                = element(var.ip_address, count.index)
       private_key         = file(var.ssh_private_key)
-      timeout             = "3m"
-   } 
+      timeout             = "2m"
+   }
+ }
 
 }
+
