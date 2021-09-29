@@ -157,17 +157,20 @@ variable "custom_template" {
 variable "sp_scripts" {
   description = "Source path for Scripts"
   type        = string
-  default     = "scripts"
+  #default     = "scripts"
+  default     = ""
 }
 
 variable "dp_scripts" {
   description = "Set target path for Scripts"
   type        = string
-  default     = "/tmp/"
+  #default     = "/tmp/"
+  default     = ""
 }
 
 variable "remote_exec" {
   description = "Set path for remote exec"
   type        = string
-  default     = "./scripts/remote_exec"
+  #default     = "./scripts/remote_exec"
+  default     = ""
 }

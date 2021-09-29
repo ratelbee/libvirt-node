@@ -64,7 +64,7 @@ resource "libvirt_domain" "virt-machine" {
 }
 
 resource "null_resource" "file" {
-  count      = var.vm_count
+  count = "${var.sp_scripts != "" && var.dp_scripts != "" ? var.vm_count : 0}"
   depends_on = [ libvirt_domain.virt-machine ]
   on_failure = continue
 
@@ -84,7 +84,7 @@ resource "null_resource" "file" {
 }
 
 resource "null_resource" "exec" {
-  count    = var.vm_count
+  count = "${var.remote_exec != "" ? var.vm_count : 0}"
 
   triggers = {
     before = null_resource.file[count.index].id
