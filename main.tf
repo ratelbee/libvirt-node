@@ -90,7 +90,7 @@ resource "null_resource" "exec" {
   }
 
   provisioner "remote-exec" {
-    inline = [ "${file(var.remote_exec)}" ]
+    inline = [ var.remote_exec ]
 
   connection {
       type                = "ssh"
