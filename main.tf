@@ -86,7 +86,7 @@ resource "null_resource" "exec" {
   count = "${var.remote_exec != "" ? var.vm_count : 0}"
 
   triggers = {
-    before = "${var.sp_scripts != "" && var.dp_scripts != "" ? null_resource.file[count.index].id : libvirt_domain.virt-machine }"
+    before = "${var.sp_scripts != "" && var.dp_scripts != "" ? null_resource.file[count.index].id : libvirt_domain.virt-machine[count.index].id }"
   }
 
   provisioner "remote-exec" {
