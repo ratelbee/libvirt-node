@@ -86,7 +86,7 @@ resource "null_resource" "exec" {
   count = "${var.remote_exec != "" ? var.vm_count : 0}"
 
   triggers = {
-    before = null_resource.file[count.index].id != null ? null_resource.file[count.index].id : []
+    before = null_resource.file != null ? null_resource.file[count.index].id : []
   }
 
   provisioner "remote-exec" {
