@@ -1,5 +1,5 @@
 resource "null_resource" "init_exec" {
-  count = "${var.init_sp_scripts != "" && var.init_dp_scripts && var.init_exec != "" ? var.vm_count : 0}"
+  count = "${var.init_sp_scripts != "" && var.init_dp_scripts != "" && var.init_exec != "" ? var.vm_count : 0}"
 
   triggers = {
     before = libvirt_domain.virt_machine[count.index].id
