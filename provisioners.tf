@@ -9,21 +9,21 @@ resource "null_resource" "init_exec" {
     source      = local.init_sp_scripts
     destination = local.init_dp_scripts
 
-    when = create
+    #when = create
 
     connection {
       type                = "ssh"
       user                = var.admin
       host                = element(var.ip_address, count.index)
       private_key         = var.ssh_private_key
-      #timeout             = "2m"
+      timeout             = "2m"
     }
   }
 
   provisioner "remote-exec" {
     inline = [ local.init_exec ]
 
-    when = create
+    #when = create
 
     connection {
       type                = "ssh"
