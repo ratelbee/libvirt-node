@@ -40,9 +40,10 @@ resource "null_resource" "apply_file" {
   count = "${var.apply_sp != "" && var.apply_dp != "" ? var.vm_count : 0}"
 
   triggers = {
+      always_run = timestamp()
       before = "${var.init_sp_scripts != "" && var.init_dp_scripts != "" && var.init_exec != "" ?
-                null_resource.init_exec[count.index].id :
-                libvirt_domain.virt_machine[count.index].id }"
+                  null_resource.init_exec[count.index].id :
+                  libvirt_domain.virt_machine[count.index].id }"
   }
 
   provisioner "file" {
@@ -65,7 +66,8 @@ resource "null_resource" "apply_exec" {
   count = "${var.apply_exec != "" ? var.vm_count : 0}"
 
   triggers = {
-      before = "${var.apply_sp != "" && var.apply_dp != "" ?
+    always_run = timestamp()
+    before = "${var.apply_sp != "" && var.apply_dp != "" ?
                 null_resource.apply_file[count.index].id :
                 null_resource.init_exec[count.index].id }"
   }
