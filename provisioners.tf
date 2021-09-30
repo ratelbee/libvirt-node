@@ -2,7 +2,7 @@ resource "null_resource" "init_exec" {
   count = "${local.init_sp_scripts != "" && local.init_dp_scripts != "" && local.init_exec != "" ? var.vm_count : 0}"
 
   triggers = {
-    before = libvirt_domain.virt_machine[count.index].id
+    before = libvirt_domain.virt_machine[count.index].disk
   }
 
   provisioner "file" {
