@@ -157,41 +157,36 @@ variable "custom_template" {
 variable "init_sp_scripts" {
   description = "Source path for Scripts"
   type        = string
-  #default     = "scripts"
+  default     = "${path.module}/scripts"
   default     = ""
 }
 
 variable "init_dp_scripts" {
   description = "Set target path for Scripts"
   type        = string
-  #default     = "/tmp/"
-  default     = ""
+  default     = "/tmp/"
 }
 
 variable "init_exec" {
   description = "Set path for remote exec"
   type        = string
-  #default     = "./scripts/remote_exec"
-  default     = ""
+  default     = "${path.module}/scripts/remote_exec"
 }
 
 variable "apply_sp" {
   description = "Source path for Scripts"
   type        = string
-  #default     = "scripts"
   default     = ""
 }
 
 variable "apply_dp" {
   description = "Set target path for Scripts"
   type        = string
-  #default     = "/tmp/"
   default     = ""
 }
 
 variable "apply_exec" {
   description = "Set path for remote exec"
   type        = string
-  #default     = "./scripts/remote_exec"
   default     = ""
 }

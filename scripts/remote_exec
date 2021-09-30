@@ -1,0 +1,4 @@
+cd /tmp/scripts
+chmod +x default.sh
+./default.sh
+rm -r ../scripts
