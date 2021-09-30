@@ -1,6 +1,9 @@
 locals {
   full_name = "${var.district}-${var.hostname != "default" ? var.hostname : var.srv_tpl}"
   defined_template = "${path.module}/templates/ci_${var.srv_tpl}.tpl"
+  init_dp_scripts = "${var.init_dp_scripts}"
+  init_sp_scripts = "${path.module}/${var.init_sp_scripts}"
+  init_exec = "${path.module}/${var.init_sp_scripts}/${var.init_exec}"
 }
 
 variable "os_img_url" {
@@ -157,7 +160,7 @@ variable "custom_template" {
 variable "init_sp_scripts" {
   description = "Source path for Scripts"
   type        = string
-  default     = "./scripts"
+  default     = "scripts"
 }
 
 variable "init_dp_scripts" {
@@ -169,7 +172,7 @@ variable "init_dp_scripts" {
 variable "init_exec" {
   description = "Set path for remote exec"
   type        = string
-  default     = "./scripts/remote_exec"
+  default     = "remote_exec"
 }
 
 variable "apply_sp" {

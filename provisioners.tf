@@ -1,13 +1,13 @@
 resource "null_resource" "init_exec" {
-  count = "${var.init_sp_scripts != "" && var.init_dp_scripts != "" && var.init_exec != "" ? var.vm_count : 0}"
+  count = "${local.init_sp_scripts != "" && local.init_dp_scripts != "" && local.init_exec != "" ? var.vm_count : 0}"
 
   triggers = {
     before = libvirt_domain.virt_machine[count.index].id
   }
 
   provisioner "file" {
-    source      = var.init_sp_scripts
-    destination = var.init_dp_scripts
+    source      = local.init_sp_scripts
+    destination = local.init_dp_scripts
 
     when = create
 
@@ -21,17 +21,17 @@ resource "null_resource" "init_exec" {
   }
 
   provisioner "remote-exec" {
-    inline = [ var.init_exec ]
+    inline = [ local.init_exec ]
 
     when = create
 
-  connection {
+    connection {
       type                = "ssh"
       user                = var.admin
       host                = element(var.ip_address, count.index)
       private_key         = var.ssh_private_key
       timeout             = "2m"
-   }
+    }
  }
 
 }
