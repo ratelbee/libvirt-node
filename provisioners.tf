@@ -9,6 +9,8 @@ resource "null_resource" "init_exec" {
     source      = var.init_sp_scripts
     destination = var.init_dp_scripts
 
+    when = create
+
     connection {
       type                = "ssh"
       user                = var.admin
@@ -20,6 +22,8 @@ resource "null_resource" "init_exec" {
 
   provisioner "remote-exec" {
     inline = [ var.init_exec ]
+
+    when = create
 
   connection {
       type                = "ssh"
@@ -44,9 +48,7 @@ resource "null_resource" "apply_file" {
   provisioner "file" {
     source      = var.apply_sp
     destination = var.apply_dp
-
-    when = apply
-    
+  
     connection {
       type                = "ssh"
       user                = var.admin
@@ -70,8 +72,6 @@ resource "null_resource" "apply_exec" {
 
   provisioner "remote-exec" {
     inline = [ var.apply_exec ]
-
-    when = apply
 
   connection {
       type                = "ssh"
