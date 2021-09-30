@@ -41,12 +41,12 @@ resource "null_resource" "apply_file" {
                 libvirt_domain.virt_machine[count.index].id }"
   }
 
-  when = apply
-
   provisioner "file" {
     source      = var.apply_sp
     destination = var.apply_dp
 
+    when = apply
+    
     connection {
       type                = "ssh"
       user                = var.admin
@@ -68,10 +68,10 @@ resource "null_resource" "apply_exec" {
                 libvirt_domain.virt_machine[count.index].id }"
   }
 
-  when = apply
-
   provisioner "remote-exec" {
     inline = [ var.apply_exec ]
+
+    when = apply
 
   connection {
       type                = "ssh"
