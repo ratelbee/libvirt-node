@@ -158,7 +158,6 @@ variable "init_sp_scripts" {
   description = "Source path for Scripts"
   type        = string
   default     = "${path.module}/scripts"
-  default     = ""
 }
 
 variable "init_dp_scripts" {
