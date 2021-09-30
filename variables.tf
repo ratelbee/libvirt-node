@@ -175,14 +175,14 @@ variable "init_exec" {
   default     = ""
 }
 
-variable "apply_sp_scripts" {
+variable "apply_sp" {
   description = "Source path for Scripts"
   type        = string
   #default     = "scripts"
   default     = ""
 }
 
-variable "apply_dp_scripts" {
+variable "apply_dp" {
   description = "Set target path for Scripts"
   type        = string
   #default     = "/tmp/"
