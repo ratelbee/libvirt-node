@@ -3,7 +3,7 @@ locals {
   defined_template = "${path.module}/templates/ci_${var.srv_tpl}.tpl"
   init_dp_scripts = "${var.init_dp_scripts}"
   init_sp_scripts = "${path.module}/${var.init_sp_scripts}"
-  init_exec = "${file(${path.module}/${var.init_sp_scripts}/${var.init_exec})}"
+  init_exec = "${path.module}/${var.init_sp_scripts}/${var.init_exec}"
 }
 
 variable "os_img_url" {

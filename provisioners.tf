@@ -21,7 +21,7 @@ resource "null_resource" "init_exec" {
   }
 
   provisioner "remote-exec" {
-    inline = [ local.init_exec ]
+    inline = [ ${local.init_exec} ]
 
     #when = create
 
