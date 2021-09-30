@@ -157,7 +157,7 @@ variable "custom_template" {
 variable "init_sp_scripts" {
   description = "Source path for Scripts"
   type        = string
-  default     = "${path.module}/scripts"
+  default     = "./scripts"
 }
 
 variable "init_dp_scripts" {
@@ -169,7 +169,7 @@ variable "init_dp_scripts" {
 variable "init_exec" {
   description = "Set path for remote exec"
   type        = string
-  default     = "${path.module}/scripts/remote_exec"
+  default     = "./scripts/remote_exec"
 }
 
 variable "apply_sp" {
