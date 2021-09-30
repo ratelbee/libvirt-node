@@ -8,7 +8,7 @@ terraform {
     }
 }
 
-resource "libvirt_domain" "virt-machine" {
+resource "libvirt_domain" "virt_machine" {
   count      = var.vm_count
   name       = format("${local.full_name}-%02d", count.index + var.index_start)
   memory     = var.memory
@@ -63,45 +63,4 @@ resource "libvirt_domain" "virt-machine" {
   
 }
 
-resource "null_resource" "file" {
-  count = "${var.sp_scripts != "" && var.dp_scripts != "" ? var.vm_count : 0}"
-  depends_on = [ libvirt_domain.virt-machine ]
-
-  provisioner "file" {
-    source      = var.sp_scripts
-    destination = var.dp_scripts
-
-    connection {
-      type                = "ssh"
-      user                = var.admin
-      host                = element(var.ip_address, count.index)
-      private_key         = var.ssh_private_key
-      #timeout             = "2m"
-    }
-  }
-
-}
-
-resource "null_resource" "exec" {
-  count = "${var.remote_exec != "" ? var.vm_count : 0}"
-
-  triggers = {
-    before = "${var.sp_scripts != "" && var.dp_scripts != "" ?
-                null_resource.file[count.index].id :
-                libvirt_domain.virt-machine[count.index].id }"
-  }
-
-  provisioner "remote-exec" {
-    inline = [ var.remote_exec ]
-
-  connection {
-      type                = "ssh"
-      user                = var.admin
-      host                = element(var.ip_address, count.index)
-      private_key         = var.ssh_private_key
-      timeout             = "2m"
-   }
- }
-
-}
 
