@@ -67,9 +67,10 @@ resource "null_resource" "apply_exec" {
 
   triggers = {
     always_run = timestamp()
-    before = "${var.apply_sp != "" && var.apply_dp != "" ?
-                null_resource.apply_file[count.index].id :
-                null_resource.init_exec[count.index].id }"
+    before = "${var.apply_sp != "" && var.apply_dp != "" ? null_resource.apply_file[count.index].id :
+                ${var.init_sp_scripts != "" && var.init_dp_scripts != "" && var.init_exec != "" ?
+                  null_resource.init_exec[count.index].id :
+                  libvirt_domain.virt_machine[count.index].id }}"
   }
 
   provisioner "remote-exec" {
