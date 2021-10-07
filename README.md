@@ -34,7 +34,7 @@ module "node" {
   
 }
 
-output "ip_addresses" {
+output "node" {
   value = module.node
 }
 

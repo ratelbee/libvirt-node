@@ -4,5 +4,5 @@ output "virtual_machines" {
 }
 
 output "storage_size" {
-  value = libvirt_volume.volume-qcow2.*.size%(1024*1024*1024)
+  value = libvirt_volume.volume-qcow2.*.size
 }
