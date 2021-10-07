@@ -9,7 +9,7 @@ resource "libvirt_volume" "volume-qcow2" {
   count  = var.vm_count
   name   = format("${local.full_name}-%02d.qcow2", count.index + var.index_start)
   pool   = var.pool
-  #size   = 1024*1024*1024*var.system_volume
+  size   = 1024*1024*1024*var.system_volume
   base_volume_id = libvirt_volume.base-volume-qcow2.id
   format = "qcow2"
 }

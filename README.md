@@ -3,32 +3,34 @@
 module "node" {
   source        = "$SOURCE_GIT_LINK"
   vm_count      = 2
-  district      = "fm"
-  srv_tpl       = "glrnr"
-  fqdn          = "alyans.alyans-auto.ru"
-  memory        = "1024"
+  district      = "local"
+  fqdn          = "example.com"
+  memory        = "512"
   hugepages     = false
   vcpu          = 1
   pool          = "vmssd"
-  system_volume = 8
   bridge        = "br0"
-  dhcp 		= false
-  ip_address 	= [
-                   "10.20.1.183/24",
-                   "10.20.1.184/24",
-                   "10.20.1.185/24",
-                   "10.20.1.186/24",
+  dhcp 		      = false
+  ip_address 	  = [
+                   "172.16.1.191",
+                   "172.16.1.192",
                   ]
-  ip_gateway    = "10.20.1.1"
-  ip_resolv     = "'10.20.1.30', '10.20.0.30'"
-  admin         = "user"
-  passwd        = "password"
-  ssh_keys      = file("./id_rsa.pub")
-  time_zone     = "Europe/Moscow"
-  os_img_url    = "/vmssd/iso/ubuntu-20.04-server-cloudimg-amd64.img"
-  #hostname     = "runner"
-  #ssh_private_key = "~/.ssh/id_rsa"
-  #custom_template = "./gl-rnr.tpl"
+  ip_gateway       = "172.16.1.1"
+  ip_resolv        = "'172.16.1.30', '8.8.8.8'"
+  ip_netmask       = "24"
+  admin            = "admin"
+  passwd           = "admin"
+  ssh_keys         = file("./id_rsa.pub") # key for guest machines
+  time_zone        = "Europe/Moscow"
+  os_img_url       = "http://localhost/ubuntu-20.04-server-cloudimg-amd64.img"
+  ssh_private_key  = file("./id_rsa") # kye for exec in guest machines
+  hostname         = "name"
+  #custom_template  = "./custom.tpl" #external template
+  #srv_tpl         = "glrnr" #internal template
+  init_sp_scripts  = ""
+  init_dp_scripts  = ""
+  init_exec        = ""
+  #apply_exec      = "echo  $(date) 'Terraform test exec from job'"
   
 }
 
@@ -37,16 +39,13 @@ output "ip_addresses" {
 }
 
 terraform {
-  backend "pg" {
-    conn_str = "$PG_BACKEND_URI"
-  }
   required_providers {
     libvirt = {
       source  = "dmacvicar/libvirt"
       version = "0.6.10"
     }
   }
-  required_version = ">= 0.14"
+  required_version = ">= 1.0.6"
 }
 
 provider "libvirt" {
@@ -55,8 +54,6 @@ provider "libvirt" {
 
 
 ```
-`$SOURCE_GIT_LINK = "git::https://gitlab.alyans-auto.ru/pub/libvirt-node.git"`
+`$SOURCE_GIT_LINK = "git::https://github.com/ratelbee/libvirt-node.git"`
 
-`$PG_BACKEND_URI = "postgres://tfstate:tfstate@gitlab.alyans-auto.ru:6432/tfstate?sslmode=disable"`
-
-`"$QEMU_SSH_URI" = "qemu+ssh://q@fm-kvm/system?keyfile=id_rsa"`
+`"$QEMU_SSH_URI" = "qemu+ssh://libvirt@libvirt-host/system?keyfile=libvirt_id_rsa"`

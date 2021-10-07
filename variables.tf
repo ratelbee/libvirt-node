@@ -47,7 +47,7 @@ variable "hostname" {
 variable "fqdn" {
   description = "VM or FQDN"
   type        = string
-  default     = "alyans.alyans-auto.ru"
+  default     = "example.com"
 }
 
 variable "memory" {
@@ -74,6 +74,7 @@ variable "pool" {
 
 variable "system_volume" {
   description = "System Volume size (GB)"
+  type = number
   default = 10
 }
 
