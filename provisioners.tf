@@ -9,8 +9,6 @@ resource "null_resource" "init_exec" {
     source      = local.init_sp_scripts
     destination = local.init_dp_scripts
 
-    #when = create
-
     connection {
       type                = "ssh"
       user                = var.admin
@@ -22,8 +20,6 @@ resource "null_resource" "init_exec" {
 
   provisioner "remote-exec" {
     inline = [ file(local.init_exec) ]
-
-    #when = create
 
     connection {
       type                = "ssh"
