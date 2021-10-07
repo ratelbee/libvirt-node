@@ -1,5 +1,5 @@
 resource "null_resource" "init_exec" {
-  count = "${local.init_sp_scripts != "" && local.init_dp_scripts != "" && local.init_exec != "" ? var.vm_count : 0}"
+  count = local.init_sp_scripts != "" && local.init_dp_scripts != "" && local.init_exec != "" ? var.vm_count : 0
 
   triggers = {
     before = libvirt_domain.virt_machine[count.index].id
@@ -37,13 +37,13 @@ resource "null_resource" "init_exec" {
 }
 
 resource "null_resource" "apply_file" {
-  count = "${var.apply_sp != "" && var.apply_dp != "" ? var.vm_count : 0}"
+  count = var.apply_sp != "" && var.apply_dp != "" ? var.vm_count : 0
 
   triggers = {
       always_run = timestamp()
-      before = "${var.init_sp_scripts != "" && var.init_dp_scripts != "" && var.init_exec != "" ?
+      before = var.init_sp_scripts != "" && var.init_dp_scripts != "" && var.init_exec != "" ?
                   null_resource.init_exec[count.index].id :
-                  libvirt_domain.virt_machine[count.index].id }"
+                  libvirt_domain.virt_machine[count.index].id
   }
 
   provisioner "file" {
@@ -63,14 +63,14 @@ resource "null_resource" "apply_file" {
 
 
 resource "null_resource" "apply_exec" {
-  count = "${var.apply_exec != "" ? var.vm_count : 0}"
+  count = var.apply_exec != "" ? var.vm_count : 0
 
   triggers = {
     always_run = timestamp()
-    before = "${var.apply_sp != "" && var.apply_dp != "" ? null_resource.apply_file[count.index].id :
-                ${var.init_sp_scripts != "" && var.init_dp_scripts != "" && var.init_exec != "" ?
+    before = var.apply_sp != "" && var.apply_dp != "" ? null_resource.apply_file[count.index].id :
+                var.init_sp_scripts != "" && var.init_dp_scripts != "" && var.init_exec != "" ?
                   null_resource.init_exec[count.index].id :
-                  libvirt_domain.virt_machine[count.index].id }}"
+                  libvirt_domain.virt_machine[count.index].id
   }
 
   provisioner "remote-exec" {
