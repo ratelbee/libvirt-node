@@ -1,9 +1,11 @@
 # Libvirt Node Example
 ```
 module "node" {
+  #path to module
   source        = "$SOURCE_GIT_LINK"
+  #count of domain
   vm_count      = 2
-  district      = "local"
+  #fqdn for hostname 
   fqdn          = "example.com"
   memory        = "512"
   hugepages     = false
@@ -24,6 +26,8 @@ module "node" {
   time_zone        = "Europe/Moscow"
   os_img_url       = "http://localhost/ubuntu-20.04-server-cloudimg-amd64.img"
   ssh_private_key  = file("./id_rsa") # kye for exec in guest machines
+  #prefix for hostname domain
+  district      = "local"
   hostname         = "name"
   #custom_template  = "./custom.tpl" #external template
   #srv_tpl         = "glrnr" #internal template
