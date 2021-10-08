@@ -28,7 +28,7 @@ variable "index_start" {
 
 variable "district" {
   description = "VM hostname prefix"
-  default     = "vm"
+  default     = ""
 }
 
 variable "module_template" {
