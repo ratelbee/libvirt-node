@@ -72,7 +72,7 @@ variable "pool" {
   default = "default"
 }
 
-variable "system_volume" {
+variable "storage_size" {
   description = "System Volume size (GB)"
   type = number
   default = 10
