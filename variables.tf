@@ -110,7 +110,7 @@ variable "ip_address" {
   default     = [ "192.168.123.101" ]
 }
 
-variable "ip_resolv" {
+variable "ip_resolve" {
   description = "IP addresses of a nameservers"
   default     =  "192.168.123.1" 
 }
@@ -124,6 +124,11 @@ variable "ip_netmask" {
 variable "ip_gateway" {
   description = "IP addresses of a gateway"
   default     = "192.168.123.1"
+}
+
+variable "ip_domain" {
+  description = "Domain search"
+  default     = ""
 }
 
 variable "admin" {
