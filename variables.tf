@@ -47,7 +47,7 @@ variable "hostname" {
 variable "fqdn" {
   description = "VM or FQDN"
   type        = string
-  default     = "example.com"
+  default     = ""
 }
 
 variable "memory" {
