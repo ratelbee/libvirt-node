@@ -38,12 +38,6 @@ resource "libvirt_domain" "virt_machine" {
     target_type = "serial"
   }
 
-  console {
-    type        = "unix"
-    target_type = "virtio"
-    target_port = "1"
-  }
-
   disk {
     volume_id = element(libvirt_volume.volume-qcow2.*.id, count.index)
   }
