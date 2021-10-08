@@ -1,8 +1,8 @@
 locals {
   full_name = "${var.district != "" ? "${var.district}-" : ""}${var.hostname != "default" ? var.hostname : var.module_template}"
   defined_template = "${path.module}/templates/ci_${var.module_template}.tpl"
-  init_dp_scripts = "${var.init_file_target_path}"
-  init_sp_scripts = "${path.module}/${var.init_file_source_path}"
+  init_file_target_path = "${var.init_file_target_path}"
+  init_file_source_path = "${path.module}/${var.init_file_source_path}"
   init_exec = "${path.module}/${var.init_file_source_path}/${var.init_exec}"
 }
 
