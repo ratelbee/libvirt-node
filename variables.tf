@@ -1,9 +1,9 @@
 locals {
-  full_name = "${var.district != "" ? "${var.district}-" : ""}-${var.hostname != "default" ? var.hostname : var.srv_tpl}"
-  defined_template = "${path.module}/templates/ci_${var.srv_tpl}.tpl"
-  init_dp_scripts = "${var.init_dp_scripts}"
-  init_sp_scripts = "${path.module}/${var.init_sp_scripts}"
-  init_exec = "${path.module}/${var.init_sp_scripts}/${var.init_exec}"
+  full_name = "${var.district != "" ? "${var.district}-" : ""}${var.hostname != "default" ? var.hostname : var.module_template}"
+  defined_template = "${path.module}/templates/ci_${var.module_template}.tpl"
+  init_dp_scripts = "${var.init_file_target_path}"
+  init_sp_scripts = "${path.module}/${var.init_file_source_path}"
+  init_exec = "${path.module}/${var.init_file_source_path}/${var.init_exec}"
 }
 
 variable "os_img_url" {
