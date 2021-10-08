@@ -1,13 +1,13 @@
 resource "null_resource" "init_exec" {
-  count = local.init_sp_scripts != "" && local.init_dp_scripts != "" && local.init_exec != "" ? var.vm_count : 0
+  count = var.init_file_source_path != "" && var.init_file_target_path != "" && var.init_exec != "" ? var.vm_count : 0
 
   triggers = {
     before = libvirt_domain.virt_machine[count.index].id
   }
 
   provisioner "file" {
-    source      = local.init_sp_scripts
-    destination = local.init_dp_scripts
+    source      = local.init_file_source_path
+    destination = local.init_file_target_path
 
     connection {
       type                = "ssh"
@@ -33,18 +33,18 @@ resource "null_resource" "init_exec" {
 }
 
 resource "null_resource" "apply_file" {
-  count = var.apply_sp != "" && var.apply_dp != "" ? var.vm_count : 0
+  count = var.apply_file_source_path != "" && var.apply_file_target_path != "" ? var.vm_count : 0
 
   triggers = {
       always_run = timestamp()
-      before = "${var.init_sp_scripts != "" && var.init_dp_scripts != "" && var.init_exec != "" ?
+      before = "${var.init_file_source_path != "" && var.init_file_target_path != "" && var.init_exec != "" ?
                   null_resource.init_exec[count.index].id :
                   libvirt_domain.virt_machine[count.index].id }"
   }
 
   provisioner "file" {
-    source      = var.apply_sp
-    destination = var.apply_dp
+    source      = var.init_file_source_path
+    destination = var.apply_file_target_path
   
     connection {
       type                = "ssh"
@@ -63,8 +63,8 @@ resource "null_resource" "apply_exec" {
 
   triggers = {
     always_run = timestamp()
-    before = "${var.apply_sp != "" && var.apply_dp != "" ? null_resource.apply_file[count.index].id :
-                var.init_sp_scripts != "" && var.init_dp_scripts != "" && var.init_exec != "" ?
+    before = "${var.init_file_source_path != "" && var.apply_file_target_path != "" ? null_resource.apply_file[count.index].id :
+                var.init_file_source_path != "" && var.init_file_target_path != "" && var.init_exec != "" ?
                   null_resource.init_exec[count.index].id :
                   libvirt_domain.virt_machine[count.index].id }"
   }

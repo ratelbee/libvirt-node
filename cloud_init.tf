@@ -14,7 +14,7 @@ data "template_file" "network_config" {
 
 data "template_file" "init_config" {
   count = var.vm_count
-  template = file("${var.custom_template != null ? var.custom_template : local.defined_template}")
+  template = file("${var.custom_template != "" ? var.custom_template : local.defined_template}")
   vars = {
     admin = var.admin
     ssh_keys = var.ssh_keys

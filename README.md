@@ -1,17 +1,24 @@
 # Libvirt Node Example
 ```
 module "node" {
-  #path to module
+  #=====================================
+  #=========BASE CONFIGURATION==========
+  #=====================================
   source        = "$SOURCE_GIT_LINK"
-  #count of domain
   vm_count      = 2
-  #fqdn for hostname 
-  fqdn          = "example.com"
+  index_start = 1
+  os_img_url       = "http://localhost/ubuntu-20.04-server-cloudimg-amd64.img"
+  #=====================================
+  #=======HARDWARE CONFIGURATION========
+  #=====================================
   memory        = "512"
   hugepages     = false
   vcpu          = 1
   pool          = "vmssd"
-  bridge        = "br0"
+  #=====================================
+  #=======NETWORK  CONFIGURATION========
+  #=====================================
+  bridge          = "br0"
   dhcp 		      = false
   ip_address 	  = [
                    "172.16.1.191",
@@ -20,22 +27,32 @@ module "node" {
   ip_gateway       = "172.16.1.1"
   ip_resolv        = "'172.16.1.30', '8.8.8.8'"
   ip_netmask       = "24"
+  #ip_domain       = "example.com"
+  #=====================================
+  #=========HOST CONFIGURATION==========
+  #=====================================
+  fqdn              = "example.com"
+  time_zone         = "Europe/Moscow"
+  district          = "local"
+  hostname          = "name"
+  #custom_template  = "./custom.tpl" #external template
+  #module_template  = "docker"
+  #=====================================
+  #========FILES AND EXECUTIONS=========
+  #=====================================
+  init_file_source_path   = ""
+  init_file_target_path   = ""
+  init_exec               = ""
+  #apply_file_source_path =
+  #apply_file_target_path =
+  #apply_exec             = "echo  $(date) 'Terraform test exec from job'"
+  #=====================================
+  #=========USER CONFIGURATION==========
+  #=====================================
   admin            = "admin"
   passwd           = "admin"
   ssh_keys         = file("./id_rsa.pub") # key for guest machines
-  time_zone        = "Europe/Moscow"
-  os_img_url       = "http://localhost/ubuntu-20.04-server-cloudimg-amd64.img"
   ssh_private_key  = file("./id_rsa") # kye for exec in guest machines
-  #prefix for hostname domain
-  district      = "local"
-  hostname         = "name"
-  #custom_template  = "./custom.tpl" #external template
-  #srv_tpl         = "glrnr" #internal template
-  init_sp_scripts  = ""
-  init_dp_scripts  = ""
-  init_exec        = ""
-  #apply_exec      = "echo  $(date) 'Terraform test exec from job'"
-  
 }
 
 output "node" {

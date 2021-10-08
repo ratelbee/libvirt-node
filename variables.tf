@@ -1,5 +1,5 @@
 locals {
-  full_name = "${var.district}-${var.hostname != "default" ? var.hostname : var.srv_tpl}"
+  full_name = "${var.district != "" ? "${var.district}-" : ""}-${var.hostname != "default" ? var.hostname : var.srv_tpl}"
   defined_template = "${path.module}/templates/ci_${var.srv_tpl}.tpl"
   init_dp_scripts = "${var.init_dp_scripts}"
   init_sp_scripts = "${path.module}/${var.init_sp_scripts}"
@@ -22,7 +22,7 @@ variable "vm_count" {
 }
 
 variable "index_start" {
-  description = "From where the indexig start"
+  description = "From where the indexing start"
   default = 1
 }
 
@@ -31,7 +31,7 @@ variable "district" {
   default     = "vm"
 }
 
-variable "srv_tpl" {
+variable "module_template" {
   description = "Choosing a template for a service"
   type        = string
   default     = "default"
@@ -155,16 +155,16 @@ variable "ssh_private_key" {
 variable "custom_template" {
   description = "Set A custom Template"
   type        = string
-  default     = null
+  default     = ""
 }
 
-variable "init_sp_scripts" {
+variable "init_file_source_path" {
   description = "Source path for Scripts"
   type        = string
   default     = "scripts"
 }
 
-variable "init_dp_scripts" {
+variable "init_file_target_path" {
   description = "Set target path for Scripts"
   type        = string
   default     = "/tmp/"
@@ -176,13 +176,13 @@ variable "init_exec" {
   default     = "remote_exec"
 }
 
-variable "apply_sp" {
+variable "apply_file_source_path" {
   description = "Source path for Scripts"
   type        = string
   default     = ""
 }
 
-variable "apply_dp" {
+variable "apply_file_target_path" {
   description = "Set target path for Scripts"
   type        = string
   default     = ""
