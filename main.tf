@@ -22,6 +22,7 @@ resource "libvirt_domain" "virt_machine" {
   }
 
   network_interface {
+    network_name   = "default"
     bridge         = var.bridge
     wait_for_lease = var.dhcp == true ? true : false
     hostname       = format("${local.full_name}-%02d", count.index + var.index_start)
