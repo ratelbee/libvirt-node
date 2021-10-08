@@ -39,7 +39,7 @@ resource "libvirt_domain" "virt_machine" {
   }
 
   console {
-    type        = "pty"
+    type        = "unix"
     target_type = "virtio"
     target_port = "1"
   }

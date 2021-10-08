@@ -6,3 +6,7 @@ output "virtual_machines" {
 output "storage_size" {
   value = libvirt_volume.volume-qcow2.*.size
 }
+
+output "mac_address" {
+  value = libvirt_domain.virt_machine.*.network_interface.0.nic.0.addresses.0
+}
