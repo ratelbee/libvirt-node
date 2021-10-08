@@ -75,7 +75,7 @@ variable "pool" {
 variable "storage_size" {
   description = "System Volume size (GB)"
   type = number
-  default = 10
+  default = null
 }
 
 variable "share_filesystem" {
