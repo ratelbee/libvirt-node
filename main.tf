@@ -16,7 +16,10 @@ resource "libvirt_domain" "virt_machine" {
   autostart  = var.autostart
   qemu_agent = true
   cloudinit  = element(libvirt_cloudinit_disk.commoninit.*.id, count.index)
-  cpu        = "host-passthrough"
+
+  cpu {
+    mode = "host-passthrough"
+  }
 
   network_interface {
     bridge         = var.bridge
