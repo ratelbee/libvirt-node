@@ -59,7 +59,7 @@ resource "libvirt_domain" "virt_machine" {
   }
 
   provisioner "remote-exec" {
-    inline = [ "sudo virsh domifaddr ${format("${local.full_name}-%02d", count.index + var.index_start)} --source agent --interface ens3 | grep ${libvirt_domain.virt_machine.*.network_interface.0.mac} | awk '{ print $4 }' | sed 's/.\{4\}$//'" ]
+    inline = [ "sudo virsh domifaddr ${format("${local.full_name}-%02d", count.index + var.index_start)} --source agent --interface ens3 | grep ${libvirt_domain.virt_machine.*.network_interface.0.mac} | awk '{ print $4 }'" ]
 
     connection {
       type = "ssh"
