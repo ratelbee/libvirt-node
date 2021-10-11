@@ -99,6 +99,12 @@ variable "dhcp" {
   default     = false
 }
 
+variable "wait_for_lease" {
+  description = "Use Wait for Lease"
+  type        = bool
+  default     = null
+}
+
 variable "bridge" {
   description = "Bridge interface"
   default     = "virbr0"

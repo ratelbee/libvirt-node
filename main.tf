@@ -23,9 +23,9 @@ resource "libvirt_domain" "virt_machine" {
 
   network_interface {
     bridge         = var.bridge
-    wait_for_lease = var.dhcp == true ? true : false
+    wait_for_lease = var.wait_for_lease != null ? var.wait_for_lease : var.dhcp == true ? true : false
     hostname       = format("${local.full_name}-%02d", count.index + var.index_start)
-    #addresses      = [ element(var.ip_address, count.index) ]
+    addresses      = var.dhcp == false ? [ element(var.ip_address, count.index) ] : []
   }
 
   xml {
