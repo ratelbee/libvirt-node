@@ -58,17 +58,6 @@ resource "libvirt_domain" "virt_machine" {
     autoport    = true
   }
 
-  provisioner "remote-exec" {
-    inline = [ "sudo virsh domifaddr ${format("${local.full_name}-%02d", count.index + var.index_start)} --source agent --interface ens3 | grep ${libvirt_domain.virt_machine.*.network_interface.0.mac} | awk '{ print $4 }'" ]
-
-    connection {
-      type = "ssh"
-      user = "q"
-      host = element(var.ip_address, count.index)
-      private_key = var.ssh_private_key
-      timeout = "2m"
-    }
-  }
 }
 
 
