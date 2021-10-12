@@ -4,6 +4,7 @@ locals {
   init_file_target_path = "${var.init_file_target_path}"
   init_file_source_path = "${path.module}/${var.init_file_source_path}"
   init_exec = "${path.module}/${var.init_file_source_path}/${var.init_exec}"
+  nic = var.share_filesystem.source == null ? "ens3" : "ens4"
 }
 
 variable "os_img_url" {

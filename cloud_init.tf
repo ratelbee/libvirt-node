@@ -6,7 +6,7 @@ data "template_file" "network_config" {
     ip_gateway = var.ip_gateway
     ip_resolve = var.ip_resolve
     ip_netmask = var.ip_netmask
-    nic = var.share_filesystem.source == null ? "ens3" : "ens4"
+    nic = local.nic
     ip_domain = var.ip_domain != "" ? var.ip_domain : var.fqdn != "" ? var.fqdn : ""
     # WA: If the shared filesystem is used, Libvirt connects Unclassified device to the 3rd position of PCI bus
   }
