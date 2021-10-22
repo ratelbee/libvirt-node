@@ -23,6 +23,7 @@ data "template_file" "init_config" {
     full_name = local.full_name
     fqdn = "${format("${local.full_name}-%02d", count.index + var.index_start)}.${var.fqdn}"
     time_zone = var.time_zone
+    count_index = format("%02d", count.index + var.index_start)
   }
 }
 
