@@ -5,6 +5,22 @@ locals {
   init_file_source_path = "${path.module}/${var.init_file_source_path}"
   init_exec = "${path.module}/${var.init_file_source_path}/${var.init_exec}"
   nic = var.share_filesystem.source == null ? "ens3" : "ens4"
+  uri = "qemu+ssh://${var.libvirt_user}@${var.libvirt_host}/system?keyfile=${var.libvirt_id_rsa}"
+}
+
+variable "libvirt_user" {
+  description = "Name Of Libvirt User"
+  default     = "libvirt"
+}
+
+variable "libvirt_host" {
+  description = "Libvirt Remote Host"
+  default     = "localhost"
+}
+
+variable "libvirt_id_rsa" {
+  description = "Libvirt Key Filename"
+  default     = ""
 }
 
 variable "os_img_url" {
