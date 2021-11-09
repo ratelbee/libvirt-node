@@ -1,3 +1,3 @@
 provider "libvirt" {
-   uri = "local.uri"
+   uri = "${local.uri}"
 }
