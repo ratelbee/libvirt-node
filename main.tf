@@ -3,7 +3,7 @@ terraform {
     required_providers {
       libvirt = {
         source  = "dmacvicar/libvirt"
-        version = "0.6.11"
+        version = "0.6.10"
       }
     }
 }
@@ -17,7 +17,7 @@ resource "libvirt_domain" "virt_machine" {
   qemu_agent = true
   cloudinit  = element(libvirt_cloudinit_disk.commoninit.*.id, count.index)
 
-  cpu {
+  cpu = {
     mode = "host-passthrough"
   }
 
