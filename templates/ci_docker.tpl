@@ -74,3 +74,4 @@ runcmd:
   - [ systemctl, daemon-reload ]
   - [ systemctl, enable, qemu-guest-agent ]
   - [ systemctl, start, qemu-guest-agent ]
+  - usermod -aG docker ${admin}
