@@ -7,6 +7,7 @@ packages:
   - docker
   - docker.io
   - docker-compose
+  - jq
 
 hostname: ${hostname}
 fqdn: ${fqdn}
