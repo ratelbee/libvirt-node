@@ -8,6 +8,7 @@ packages:
   - docker.io
   - docker-compose
   - jq
+  - mutt
 
 hostname: ${hostname}
 fqdn: ${fqdn}
