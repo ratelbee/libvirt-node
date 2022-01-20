@@ -9,6 +9,7 @@ packages:
   - docker-compose
   - jq
   - mutt
+  - tree
 
 hostname: ${hostname}
 fqdn: ${fqdn}
